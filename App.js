@@ -1,5 +1,6 @@
 import { View, StyleSheet } from 'react-native'
 import {useState} from 'react'
+import LoginScreen from './components/LoginScreen'
 import Map from './components/Map'
 import SearchModal from './components/Modals/SearchModal'
 import FilterModal from './components/Modals/FilterModal'
@@ -38,11 +39,7 @@ const App = () => {
   const [typeCount, setTypeCount] = useState([30, 25, 40])
   return (
     <View style={styles.container}>
-      <Map/>
-      <BottomNavigator isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} isFilterModalOn={isFilterModalOn} setIsFilterModalOn={setIsFilterModalOn} isAnalysisModalOn={isAnalysisModalOn} setIsAnalysisModalOn={setIsAnalysisModalOn} />
-      <SearchModal startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedOption={selectedOption} setSelectedOption={setSelectedOption} occurrenceList={occurrenceList} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} />
-      <FilterModal startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedOption={selectedOption} setSelectedOption={setSelectedOption} occurrenceList={occurrenceList} isFilterModalOn={isFilterModalOn} setIsFilterModalOn={setIsFilterModalOn}/>
-      <AnalyseModal isAnalysisModalOn={isAnalysisModalOn} setIsAnalysisModalOn={setIsAnalysisModalOn} reportsLabels={reportsLabels} reportsCount={reportsCount} typeLabels={typeLabels} typeCount={typeCount} />
+      <LoginScreen/>
     </View>
   )
 }
