@@ -1,32 +1,37 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button, Image , StyleSheet } from 'react-native'
 import logoImage from './../../assets/logo.jpeg'
-const LoginScreen = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+import EmailIcon from "./../../assets/Register_Login_Icons/EmailIcon.png"
+import PasswordIcon from "./../../assets/Register_Login_Icons/PasswordIcon.png"
 
+const LoginScreen = ({setEmail, email, password, setPassword}) => {
   const handleLogin = () => {
     console.log('Email:', email)
     console.log('Password:', password)
   }
-  
 
   return (
     <View style={styles.container}>
-      <Image source={logoImage} style={{ width: 200, height: 200 }} />
+      <Image source={logoImage} style={{ width: 160, height: 160 }} />
       <Text style={styles.heading}>Infrareport</Text>
       <Text style={styles.subHeading}>Bem vindo! Conecte-se para iniciar!</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={text => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        onChangeText={text => setPassword(text)}
-      />
+      <View style={styles.inputView}>
+        <Image source={EmailIcon} style={{ width: 20, height: 20 }} />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          onChangeText={text => setEmail(text)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <Image source={PasswordIcon} style={{ width: 20, height: 20 }} />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          onChangeText={text => setPassword(text)}
+        />
+      </View>
 
       <Button title="Sign in" onPress={handleLogin} />
 
@@ -59,10 +64,18 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: '100%',
+    padding: 5,
+  },
+  inputView: {
+    height: 40,
+    width: '100%',
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 5,
   },
   signupContainer: {
     flexDirection: 'row',

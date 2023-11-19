@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native'
 import {useState} from 'react'
 import LoginScreen from './components/LoginScreen'
+import RegisterScreen from './components/RegisterScreen'
 import Map from './components/Map'
 import SearchModal from './components/Modals/SearchModal'
 import FilterModal from './components/Modals/FilterModal'
@@ -8,6 +9,12 @@ import AnalyseModal from './components/Modals/AnalyseModal'
 import BottomNavigator from './components/BottomNavigator'
 
 const App = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [celphone, setCelphone] = useState('')
+  const [cep, setCep] = useState('')
+  const [cityName, setCityName] = useState('')
+  const [userName, setUserName] = useState('')
   const occurrenceList = [
     "Postes Danificados",
     "Buracos nas Ruas",
@@ -39,7 +46,7 @@ const App = () => {
   const [typeCount, setTypeCount] = useState([30, 25, 40])
   return (
     <View style={styles.container}>
-      <LoginScreen/>
+      <RegisterScreen setEmail={setEmail} email={email} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} cityName={cityName} setCityName={setCityName} userName={userName} setUserName={setUserName} cep={cep} setCep={setCep} />
     </View>
   )
 }
