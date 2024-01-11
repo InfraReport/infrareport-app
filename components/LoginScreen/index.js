@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button, Image , StyleSheet } from 'react-native'
-import logoImage from './../../assets/logo.jpeg'
-import EmailIcon from "./../../assets/Register_Login_Icons/EmailIcon.png"
-import PasswordIcon from "./../../assets/Register_Login_Icons/PasswordIcon.png"
 
-const LoginScreen = ({setEmail, email, password, setPassword}) => {
+const LoginScreen = ({logoImage, PasswordIcon, EmailIcon, setEmail, email, password, setPassword}) => {
   const handleLogin = () => {
     console.log('Email:', email)
     console.log('Password:', password)

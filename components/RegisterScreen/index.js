@@ -1,12 +1,6 @@
 import { View, Text, TextInput, Button, Image, StyleSheet } from 'react-native'
-import EmailIcon from "./../../assets/Register_Login_Icons/EmailIcon.png"
-import PersonIcon from "./../../assets/Register_Login_Icons/PersonIcon.png"
-import CelphoneIcon from "./../../assets/Register_Login_Icons/CelphoneIcon.png"
-import CepIcon from "./../../assets/Register_Login_Icons/CepIcon.png"
-import CityIcon from "./../../assets/Register_Login_Icons/CityIcon.png"
-import PasswordIcon from "./../../assets/Register_Login_Icons/PasswordIcon.png"
 
-const RegisterScreen = ({setEmail, email, password, setPassword, celphone, setCelphone, cityName, setCityName, userName, setUserName, cep, setCep}) => {
+const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon, PasswordIcon, setEmail, email, password, setPassword, celphone, setCelphone, cityName, setCityName, userName, setUserName, cep, setCep}) => {
 
   const handleRegister = () => {
     console.log('Email:', email)
