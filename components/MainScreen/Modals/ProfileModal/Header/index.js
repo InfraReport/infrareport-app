@@ -8,7 +8,7 @@ const Header = ({setIsProfileModalOn}) => {
       <View>
         <Text style={styles.modalTopText}>Perfil pessoal</Text>
       </View>
-      <Pressable onPress={()=>{setIsProfileModalOn(false)}}>
+      <Pressable onPress={handleCloseModal}>
         <AntDesign name="close" size={24} color="#115" />
       </Pressable>
     </View>

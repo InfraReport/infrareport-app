@@ -1,17 +1,17 @@
 import {
   View,Text, StyleSheet, Pressable, TouchableOpacity
 } from 'react-native'
-const FooterButtons = ({postOccurrence, setIsPostOccurrenceModalOn, isPostOccurrenceModalOn}) => {
+const FooterButtons = ({handleCloseModal, validateData, setUserComment, setIsPostOccurrenceModalOn, isPostOccurrenceModalOn}) => {
   return (
     <View style={[styles.contentDiv, styles.footerDiv]}>
       <Pressable
         style={[styles.buttonLittle, styles.buttonClose,{marginRight: 8}]}
-        onPress={() => setIsPostOccurrenceModalOn(false)}>
+        onPress={handleCloseModal}>
         <Text style={{color: "gray"}}>Cancelar</Text>
       </Pressable>
       <Pressable
         style={[styles.buttonLittle, styles.searchButton]}
-        onPress={postOccurrence}>
+        onPress={validateData}>
         <Text style={{color: "white"}}>Publicar</Text>
       </Pressable>
     </View>

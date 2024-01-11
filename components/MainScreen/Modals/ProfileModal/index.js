@@ -6,6 +6,9 @@ import UserInfo from './UserInfo'
 import UserPicture from './UserPicture'
 
 const ProfileModal = ({isChangePasswordModalOn, setIsChangePasswordModalOn, isChangeNumberModalOn, setIsChangeNumberModalOn, ProfileMedal, profileCategory, points, celphone, email, password, CelphoneIcon, EmailIcon, PasswordIcon, userName, AvatarIcon, isProfileModalOn, setIsProfileModalOn}) => {
+  handleCloseModal=()=>{
+    setIsProfileModalOn(false)
+  }
   const showChangeNumberModal=()=>{
     setIsProfileModalOn(false)
     setIsChangeNumberModalOn(true)
@@ -24,11 +27,11 @@ const ProfileModal = ({isChangePasswordModalOn, setIsChangePasswordModalOn, isCh
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Header setIsProfileModalOn={setIsProfileModalOn} />
+            <Header handleCloseModal={handleCloseModal} setIsProfileModalOn={setIsProfileModalOn} />
             <View style={styles.modalContent}>
               <UserPicture ProfileMedal={ProfileMedal} profileCategory={profileCategory} points={points} userName={userName} AvatarIcon={AvatarIcon} />
               <UserInfo celphone={celphone} email={email} password={password} CelphoneIcon={CelphoneIcon} EmailIcon={EmailIcon} PasswordIcon={PasswordIcon}/>
-              <FooterButtons showChangePasswordModal={showChangePasswordModal} showChangeNumberModal={showChangeNumberModal} setIsProfileModalOn={setIsProfileModalOn} />
+              <FooterButtons handleCloseModal={handleCloseModal} showChangePasswordModal={showChangePasswordModal} showChangeNumberModal={showChangeNumberModal} setIsProfileModalOn={setIsProfileModalOn} />
             </View>
           </View>
         </View>

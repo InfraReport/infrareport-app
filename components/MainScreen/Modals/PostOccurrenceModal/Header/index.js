@@ -2,13 +2,13 @@ import {
   View,Text, StyleSheet, Pressable
 } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
-const Header = ({setIsPostOccurrenceModalOn}) => {
+const Header = ({handleCloseModal, setIsPostOccurrenceModalOn}) => {
   return (
     <View style={styles.modalTop}>
       <View>
         <Text style={styles.modalTopText}>Publicar ocorrência</Text>
       </View>
-      <Pressable onPress={()=>{setIsPostOccurrenceModalOn(false)}}>
+      <Pressable onPress={handleCloseModal}>
         <AntDesign name="close" size={24} color="#115" />
       </Pressable>
     </View>

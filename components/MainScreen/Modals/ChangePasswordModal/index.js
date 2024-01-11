@@ -5,6 +5,9 @@ import Header from './Header'
 import Inputs from './Inputs'
 
 const ChangePassowrdModal = ({isChangePasswordModalOn, setIsChangePasswordModalOn, PasswordIcon, setPassword, celphone, setIsProfileModalOn}) => {
+  const handleCloseModal=()=>{
+    setIsChangePasswordModalOn(false)
+  }
   const backToProfileModal=()=>{
     setIsChangePasswordModalOn(false)
     setIsProfileModalOn(true)
@@ -19,7 +22,7 @@ const ChangePassowrdModal = ({isChangePasswordModalOn, setIsChangePasswordModalO
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Header backToProfileModal={backToProfileModal}/>
+            <Header handleCloseModal={handleCloseModal}/>
             <View style={styles.modalContent}>
               <Inputs PasswordIcon={PasswordIcon}/>
               <FooterButtons backToProfileModal={backToProfileModal} />

@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-const ExitTab = () => {
+const ProfileTab = ({setIsProfileModalOn}) => {
   return (
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.touchable} onPress={()=>{setIsProfileModalOn(true)}}>
         <View style={styles.bottomTab}>
-          <Ionicons style={styles.bottomIcon} name="exit" size={20} color="gray" />
-          <Text style={{color: "gray"}}>Sair</Text>
+          <Ionicons name="person" size={20} color="gray" />
+          <Text style={{color: "gray"}}>Perfil</Text>
         </View>
        </TouchableOpacity>
   )
@@ -13,12 +13,12 @@ const ExitTab = () => {
 const styles = StyleSheet.create({
   bottomTab:{
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
-  bottomIcon:{
-    marginRight: 5,
+  touchable:{
+    width: "30%"
   }
 })
-export default ExitTab
+export default ProfileTab

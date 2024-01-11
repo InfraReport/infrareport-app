@@ -1,12 +1,12 @@
 import {
   View,Text, StyleSheet, Pressable
 } from 'react-native'
-const FooterButtons = ({showChangePasswordModal, showChangeNumberModal, setIsProfileModalOn}) => {
+const FooterButtons = ({handleCloseModal, showChangePasswordModal, showChangeNumberModal, setIsProfileModalOn}) => {
   return (
     <View style={[styles.contentDiv, styles.footerDiv]}>
       <Pressable
         style={[styles.buttonLittle, styles.buttonClose]}
-        onPress={() => setIsProfileModalOn(false)}>
+        onPress={handleCloseModal}>
         <Text style={{color: "gray"}}>Voltar</Text>
       </Pressable>
       <View style={styles.blueButtonsView}>

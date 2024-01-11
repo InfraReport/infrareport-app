@@ -1,7 +1,6 @@
 import { View, StyleSheet } from 'react-native'
 import Map from './Map'
 import SearchModal from './Modals/SearchModal'
-import FilterModal from './Modals/FilterModal'
 import ProfileModal from './Modals/ProfileModal'
 import ChangeNumberModal from './Modals/ChangeNumberModal'
 import ChangePasswordModal from './Modals/ChangePasswordModal'
@@ -49,8 +48,6 @@ const MainScreen=({
     setProfileCategory,
     isSearchModalOn,
     setIsSearchModalOn,
-    isFilterModalOn,
-    setIsFilterModalOn,
     isPostOccurrenceModalOn,
     setIsPostOccurrenceModalOn,
     startDate,
@@ -70,9 +67,8 @@ const MainScreen=({
     return (
         <View style={styles.container}>
             <Map markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} handleMapClick={handleMapClick} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} setIsProfileModalOn={setIsProfileModalOn} AvatarIcon={AvatarIcon}/>
-            <BottomNavigator isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} isFilterModalOn={isFilterModalOn} setIsFilterModalOn={setIsFilterModalOn} />
+            <BottomNavigator isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} />
             <SearchModal startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedOption={selectedOption} setSelectedOption={setSelectedOption} occurrenceList={occurrenceList} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} />
-            <FilterModal startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedOption={selectedOption} setSelectedOption={setSelectedOption} occurrenceList={occurrenceList} isFilterModalOn={isFilterModalOn} setIsFilterModalOn={setIsFilterModalOn}/>
             <ProfileModal isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal} profileCategory={profileCategory} points={points} celphone={celphone} email={email} password={password} PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} userName={userName} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn} />
             <ChangeNumberModal isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} CelphoneIcon={CelphoneIcon} PasswordIcon={PasswordIcon} setCelphone={setCelphone} setPassword={setPassword} celphone={celphone} setIsProfileModalOn={setIsProfileModalOn}/>
             <ChangePasswordModal isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} PasswordIcon={PasswordIcon} setPassword={setPassword} celphone={celphone} setIsProfileModalOn={setIsProfileModalOn} />

@@ -5,6 +5,9 @@ import Header from './Header'
 import Inputs from './Inputs'
 
 const ChangeNumberModal = ({isChangeNumberModalOn, setIsChangeNumberModalOn, CelphoneIcon, PasswordIcon, setCelphone, setPassword, celphone, setIsProfileModalOn}) => {
+  const handleCloseModal=()=>{
+    setIsChangeNumberModalOn(false)
+  }
   const backToProfileModal=()=>{
     setIsChangeNumberModalOn(false)
     setIsProfileModalOn(true)
@@ -19,10 +22,10 @@ const ChangeNumberModal = ({isChangeNumberModalOn, setIsChangeNumberModalOn, Cel
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Header backToProfileModal={backToProfileModal}/>
+            <Header handleCloseModal={handleCloseModal} backToProfileModal={backToProfileModal}/>
             <View style={styles.modalContent}>
               <Inputs PasswordIcon={PasswordIcon} CelphoneIcon={CelphoneIcon}/>
-              <FooterButtons backToProfileModal={backToProfileModal} />
+              <FooterButtons handleCloseModal={handleCloseModal} backToProfileModal={backToProfileModal} />
             </View>
           </View>
         </View>

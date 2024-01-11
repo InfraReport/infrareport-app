@@ -2,13 +2,13 @@ import {
   View,Text, StyleSheet, Pressable
 } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
-const Header = ({backToProfileModal}) => {
+const Header = ({handleCloseModal}) => {
   return (
     <View style={styles.modalTop}>
       <View>
         <Text style={styles.modalTopText}>Redefinindo senha</Text>
       </View>
-      <Pressable onPress={backToProfileModal}>
+      <Pressable onPress={handleCloseModal}>
         <AntDesign name="close" size={24} color="#115" />
       </Pressable>
     </View>

@@ -1,16 +1,19 @@
 import {
   View,Text, StyleSheet, TextInput
 } from 'react-native'
-const Commentary = ({userComment, setUserComment}) => {
+const Commentary = ({showCommentErrorMessage, commentErrorMessage, userComment, setUserComment}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.inputTextTitle}>Comentário:</Text>
-        <TextInput
-        multiline={true}
-        numberOfLines={5}
-        style={styles.textarea}
-        onChangeText={(text)=>{setUserComment(text)}}
-        />
+      <View>
+        <Text style={styles.inputTextTitle}>Comentário:</Text>
+          <TextInput
+          multiline={true}
+          numberOfLines={5}
+          style={styles.textarea}
+          onChangeText={(text)=>{setUserComment(text)}}
+          />
+      </View>
+      {showCommentErrorMessage && <Text style={styles.errorText}>{commentErrorMessage}</Text>}
     </View>
   )
 }
@@ -30,6 +33,13 @@ const styles = StyleSheet.create({
   },
   inputTextTitle:{
     fontSize: 20,
+  },
+  errorText:{
+    borderLeftColor: "red",
+    borderLeftWidth: 1,
+    paddingLeft: 7,
+    color: "red",
+    fontSize: 12
   }
 })
 

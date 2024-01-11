@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-const SearchTab = ({isSearchModalOn, setIsSearchModalOn}) => {
+const AddTab = ({isPostOccurrenceModalOn, setIsPostOccurrenceModalOn }) => {
   return (
-      <TouchableOpacity style={styles.touchable} onPress={()=>{setIsSearchModalOn(true)}}>
+      <TouchableOpacity style={styles.touchable} onPress={()=>{setIsPostOccurrenceModalOn(true)}}>
         <View style={styles.bottomTab}>
-          <Ionicons name="search" size={20} color={isSearchModalOn ? "#0096FF": "gray"} />
-          <Text style={isSearchModalOn ? {color:"#0096FF"}: {color:"gray"}}>Pesquisar</Text>
+          <Ionicons name="add-circle" size={20} color={isPostOccurrenceModalOn ? "#0096FF": "gray"} />
+          <Text style={isPostOccurrenceModalOn ? {color:"#0096FF"} : {color:"gray"}}>Criar</Text>
         </View>
        </TouchableOpacity>
   )
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
     width: "30%"
   }
 })
-export default SearchTab
+export default AddTab

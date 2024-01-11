@@ -58,9 +58,8 @@ const App = () => {
   const [isChangeNumberModalOn, setIsChangeNumberModalOn] = useState(false)
   const [isChangePasswordModalOn, setIsChangePasswordModalOn] = useState(false)
   const [isSearchModalOn, setIsSearchModalOn] = useState(false)
-  const [isFilterModalOn, setIsFilterModalOn] = useState(false)
   const [isPostOccurrenceModalOn, setIsPostOccurrenceModalOn] = useState(false)
-  const [userComment, setUserComment] = useState(false)
+  const [userComment, setUserComment] = useState("")
   const [selectedOption, setSelectedOption] = useState("Postes Danificados")
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -80,6 +79,7 @@ const App = () => {
     const newMarkers = [...markerPoints, currentPoint]
     setMarkerPoints(newMarkers)
     setIsPostOccurrenceModalOn(false)
+    setUserComment("")
   }
   //<RegisterScreen EmailIcon={EmailIcon} PersonIcon={PersonIcon} CelphoneIcon={CelphoneIcon} CepIcon={CepIcon} CityIcon={CityIcon} PasswordIcon={PasswordIcon} setEmail={setEmail} email={email} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} cityName={cityName} setCityName={setCityName} userName={userName} setUserName={setUserName} cep={cep} setCep={setCep} />
   //<LoginScreen logoImage={logoImage} PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} setEmail={setEmail} email={email} password={password} setPassword={setPassword} />
@@ -103,7 +103,7 @@ const App = () => {
     profileMedal={profileMedal} postOccurrence={postOccurrence} handleMapClick={handleMapClick} occurrenceList={occurrenceList} cep={cep} setCep={setCep} cityName={cityName} setCityName={setCityName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint}
     endDate={endDate} setEndDate={setEndDate} reportsCount={reportsCount} setReportsCount={setReportsCount} reportsLabels={reportsLabels} setReportsLabels={setReportsLabels} typeCount={typeCount} setTypeCount={setTypeCount} points={points} setPoints={setPoints} userName={userName} setUserName={setUserName}
     userComment={userComment} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} typeLabels={typeLabels} setTypeLabels={setTypeLabels} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
-    isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} isFilterModalOn={isFilterModalOn} setIsFilterModalOn={setIsFilterModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
+    isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
     isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal}  PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
   )
 }

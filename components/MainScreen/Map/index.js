@@ -70,17 +70,6 @@ const Map = ({markerPoints, setMarkerPoints, handleMapClick, currentPoint, setCu
           ))
         }
       </MapView>
-      <TouchableOpacity
-        style={styles.circle}
-        onPress={()=>{setIsProfileModalOn(true)}}
-        underlayColor="#DDDDDD" // Color when button is pressed
-      >
-        <Image
-          source={AvatarIcon} // Replace with your image path
-          style={styles.avatarIcon}
-          resizeMode="cover" // Adjust the image display mode as needed
-        />
-      </TouchableOpacity>
     </View>
   )
 }

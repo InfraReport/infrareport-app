@@ -1,15 +1,15 @@
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Image } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
-import FilterTab from './FilterTab'
+import AddTab from './AddTab'
 import SearchTab from './SearchTab'
-import ExitTab from './ExitTab'
+import ProfileTab from './ProfileTab'
 
-const BottomNavigator = ({isSearchModalOn, setIsSearchModalOn, isFilterModalOn, setIsFilterModalOn}) => {
+const BottomNavigator = ({isProfileModalOn, setIsProfileModalOn, isSearchModalOn, setIsSearchModalOn, isPostOccurrenceModalOn, setIsPostOccurrenceModalOn}) => {
   return (
     <View style={styles.bottomNavigator}>
       <SearchTab styles={styles} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn}/>
-      <FilterTab styles={styles} isFilterModalOn={isFilterModalOn} setIsFilterModalOn={setIsFilterModalOn}/>
-      <ExitTab styles={styles}/>
+      <AddTab styles={styles} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn}/>
+      <ProfileTab styles={styles} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
     </View>
   )
 }

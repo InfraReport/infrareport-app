@@ -5,9 +5,26 @@ import FooterButtons from './FooterButtons'
 import Header from './Header'
 import Commentary from './Commentary'
 import FileInput from './FileInput'
+import { useState } from 'react'
 
 const PostOccurrenceModal = ({postOccurrence, userComment, setUserComment, selectedOption, setSelectedOption, occurrenceList, isPostOccurrenceModalOn, setIsPostOccurrenceModalOn}) => {
+  const [commentErrorMessage, setCommentErrorMessage] = useState('')
+  const [showCommentErrorMessage, setShowCommentErrorMessage] =  useState(false)
+  
+  const handleCloseModal=()=>{
+    setIsPostOccurrenceModalOn(false)
+    setShowCommentErrorMessage(false)
+    setUserComment("")
+  }
   const handleValueChange=(itemValue, itemIndex) =>{setSelectedOption(itemValue)}
+  const validateData=()=>{
+    if(userComment.trim() === ''){
+      setShowCommentErrorMessage(true)
+      setCommentErrorMessage('O comentário não pode estar vazio.')
+      return
+    }
+    postOccurrence()
+  }
   return (
       <Modal
         animationType="slide"
@@ -15,15 +32,16 @@ const PostOccurrenceModal = ({postOccurrence, userComment, setUserComment, selec
         visible={isPostOccurrenceModalOn}
         onRequestClose={() => {
           setIsPostOccurrenceModalOn(false)
+          setUserComment("")
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Header setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn}/>
+            <Header handleCloseModal={handleCloseModal} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn}/>
             <View style={styles.modalContent}>
               <Dropdown selectedOption={selectedOption} handleValueChange={handleValueChange} occurrenceList={occurrenceList}/>
-              <Commentary userComment={userComment} setUserComment={setUserComment} />
+              <Commentary showCommentErrorMessage={showCommentErrorMessage} commentErrorMessage={commentErrorMessage} userComment={userComment} setUserComment={setUserComment} />
               <FileInput />
-              <FooterButtons postOccurrence={postOccurrence} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn}/>
+              <FooterButtons handleCloseModal={handleCloseModal} validateData={validateData} setUserComment={setUserComment} postOccurrence={postOccurrence} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn}/>
             </View>
           </View>
         </View>
@@ -58,7 +76,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "flex-start",
-  },
+  }
 })
 
 export default PostOccurrenceModal
