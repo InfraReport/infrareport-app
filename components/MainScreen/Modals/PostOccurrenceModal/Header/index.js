@@ -6,7 +6,7 @@ const Header = ({setIsPostOccurrenceModalOn}) => {
   return (
     <View style={styles.modalTop}>
       <View>
-        <Text style={styles.modalTopText}>Filtre as ocorrências</Text>
+        <Text style={styles.modalTopText}>Publicar ocorrência</Text>
       </View>
       <Pressable onPress={()=>{setIsPostOccurrenceModalOn(false)}}>
         <AntDesign name="close" size={24} color="#115" />

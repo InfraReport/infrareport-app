@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     width: "100%",
-    height: 440,
+    height: 480,
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: 'center',
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-  
 })
 
 export default PostOccurrenceModal
