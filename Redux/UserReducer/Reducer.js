@@ -15,20 +15,22 @@ const userState={
 
 const userReducer=(state=userState, action)=>{
     switch(action.type){
-        case UserActionTypes.LOGIN://If the action is login
+        case UserActionTypes.LOGIN:
             return { ...state, currentUser: action.payload }
-        case UserActionTypes.SET_EMAIL://If the action is login
+        case UserActionTypes.SET_EMAIL:
             return { ...state, email: action.payload }
-        case UserActionTypes.SET_NAME://If the action is logout
+        case UserActionTypes.SET_NAME:
             return { ...state, name: action.payload }
-        case UserActionTypes.SET_NUMBER://If the action is login
+        case UserActionTypes.SET_NUMBER:
             return { ...state, number: action.payload }
-        case UserActionTypes.SET_PASSWORD://If the action is logout
+        case UserActionTypes.SET_PASSWORD:
             return { ...state, password: active.payload }
-        case UserActionTypes.SET_POINTS://If the action is logout
-            return { ...state, points: active.payload }
-        case UserActionTypes.SET_POSITION://If the action is logout
-            return { ...state, position: active.payload }
+        case UserActionTypes.SET_POINTS:
+            return { ...state, points: action.payload }
+        case UserActionTypes.SET_POSITION:
+            return { ...state, position: action.payload }
+        case UserActionTypes.SET_CATEGORY:
+            return { ...state, profileCategory: action.payload }
         default:
             return state
     }

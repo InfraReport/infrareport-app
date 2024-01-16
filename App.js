@@ -20,13 +20,16 @@ import { loginUser, logoutUser } from './Redux/UserReducer/Actions'
 import { connect } from 'react-redux'
 import { Provider } from "react-redux"
 import store from './Redux/store'
-import { setUserName } from './Redux/UserReducer/Actions'
+import { setUserName, setUserPoints } from './Redux/UserReducer/Actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator()
-const App = ({ userName, setUserName }) => {
+const App = ({ userName, userPoints, setUserName, setUserPoints }) => {
+  const dispatch=useDispatch()
+
   const occurrenceList = [
     "Postes Danificados",
     "Buracos nas Ruas",
@@ -54,7 +57,6 @@ const App = ({ userName, setUserName }) => {
   const [markerPoints, setMarkerPoints] = useState([{position: {lat: 37.78825, lng: -122.4324}, occurrenceType: "Postes Danificados", comment: "User Comment"}])//Report
   const [cep, setCep] = useState('')//User
   const [cityName, setCityName] = useState('')//User
-  const [points, setPoints] = useState(900)//User
   const [profileCategory, setProfileCategory] = useState("")//User
   const [profileMedal, setProfileMedal] = useState(null)//User
   const [loadingMap, setLoadingMap]= useState(null)//Map
@@ -98,13 +100,13 @@ const App = ({ userName, setUserName }) => {
   //<LoginScreen logoImage={logoImage} PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} setEmail={setEmail} email={email} password={password} setPassword={setPassword} />
   useEffect(()=>{
     const loadProfileCategory=()=>{
-      if((points>=0)&&(points<600)){
+      if((userPoints>=0)&&(userPoints<600)){
         setProfileCategory("Bronze")
         setProfileMedal(BronzeMedalIcon)
-      } else if((points>=600)&&(points<900)){
+      } else if((userPoints>=600)&&(userPoints<900)){
         setProfileCategory("Prata")
         setProfileMedal(SilverMedalIcon)
-      } else if((points>=900)&&(points<=1000)){
+      } else if((userPoints>=900)&&(userPoints<=1000)){
         setProfileCategory("Ouro")
         setProfileMedal(GoldMedalIcon)
       }
@@ -122,17 +124,18 @@ const App = ({ userName, setUserName }) => {
       })()
     }
     const loadUserInfo=()=>{
-      setUserName()
+      dispatch(setUserName("Kauã Moreira Batista"))
+      dispatch(setUserPoints(900))
     }
     loadProfileCategory()
     getCurrentPosition()
-    
-  },[points])
+    loadUserInfo()
+  },[])
   
   return (
       <MainScreen
       profileMedal={profileMedal} postOccurrence={postOccurrence} handleMapClick={handleMapClick} occurrenceList={occurrenceList} cep={cep} setCep={setCep} cityName={cityName} setCityName={setCityName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint}
-      endDate={endDate} setEndDate={setEndDate} points={points} setPoints={setPoints} userName={userName}
+      endDate={endDate} setEndDate={setEndDate} points={userPoints} userName={userName}
       userComment={userComment} loadingMap={loadingMap} userPosition={userPosition} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
       isSearchModalOn={isSearchModalOn} handleCreateTabClick={handleCreateTabClick} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
       isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal}  PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
@@ -141,10 +144,12 @@ const App = ({ userName, setUserName }) => {
 
 const mapStateToProps = (state) => {
   return {
-    userName: state.name,
+    userName: state.user.name,
+    userPoints: state.user.points
   }
 }
 const mapDispatchToProps={
-  setUserName
+  setUserName,
+  setUserPoints
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App)

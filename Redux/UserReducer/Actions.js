@@ -28,3 +28,8 @@ export const setUserPoints=(payload)=>({//action to set the points
     type: UserActionTypes.SET_POINTS,
     payload: payload
 })
+
+export const setUserCategory=(payload)=>({//action to set the category of the user
+    type: UserActionTypes.SET_CATEGORY,
+    payload: payload
+})
