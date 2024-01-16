@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, Button, Image , StyleSheet } from 'react-native'
+import { View, Text, TextInput, Button, Image , StyleSheet, TouchableWithoutFeedback } from 'react-native'
 
-const LoginScreen = ({logoImage, PasswordIcon, EmailIcon, setEmail, email, password, setPassword}) => {
+const LoginScreen = ({ route, navigation }) => {
+  const { logoImage, PasswordIcon, EmailIcon } = route.params
   const handleLogin = () => {
-    console.log('Email:', email)
-    console.log('Password:', password)
+    // console.log('Email:', email)
+    // console.log('Password:', password)
+    navigation.navigate('Main')
   }
 
   return (
@@ -17,7 +18,8 @@ const LoginScreen = ({logoImage, PasswordIcon, EmailIcon, setEmail, email, passw
         <TextInput
           style={styles.input}
           placeholder="Email"
-          onChangeText={text => setEmail(text)}
+          //value={email}
+          //onChangeText={text => setEmailCallBack(text)}
         />
       </View>
       <View style={styles.inputView}>
@@ -25,8 +27,9 @@ const LoginScreen = ({logoImage, PasswordIcon, EmailIcon, setEmail, email, passw
         <TextInput
           style={styles.input}
           placeholder="Senha"
+          //value={password}
           secureTextEntry
-          onChangeText={text => setPassword(text)}
+          //onChangeText={text => setPasswordCallBack(text)}
         />
       </View>
 
@@ -34,7 +37,7 @@ const LoginScreen = ({logoImage, PasswordIcon, EmailIcon, setEmail, email, passw
 
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Não tem conta? </Text>
-        <Text style={styles.signupLink}>Cadastre-se!</Text>
+        <TouchableWithoutFeedback onPress={()=>{navigation.navigate("Register")}}><Text style={styles.signupLink}>Cadastre-se!</Text></TouchableWithoutFeedback>
       </View>
     </View>
   )

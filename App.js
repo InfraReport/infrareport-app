@@ -3,23 +3,23 @@ import {useState, useEffect} from 'react'
 import LoginScreen from './components/LoginScreen'
 import RegisterScreen from './components/RegisterScreen'
 import MainScreen from './components/MainScreen'
-
-
+import * as Location from 'expo-location'
 import AvatarIcon from "./assets/AvatarIcon.png"
 import EmailIcon from "./assets/Register_Login_Icons/EmailIcon.png"
 import PersonIcon from "./assets/Register_Login_Icons/PersonIcon.png"
 import CelphoneIcon from "./assets/Register_Login_Icons/CelphoneIcon.png"
-import CepIcon from "./assets/Register_Login_Icons/CepIcon.png"
+import CepIcon from "./assets/Register_Login_Icons/CityIcon.png"
 import CityIcon from "./assets/Register_Login_Icons/CityIcon.png"
 import PasswordIcon from "./assets/Register_Login_Icons/PasswordIcon.png"
 import BronzeMedalIcon from "./assets/Medals/BronzeMedalIcon.png"
 import SilverMedalIcon from "./assets/Medals/SilverMedalIcon.png"
 import GoldMedalIcon from "./assets/Medals/GoldMedalIcon.png"
 import logoImage from './assets/logo.jpeg'
-
+import { Provider } from "react-redux"
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+
 const Stack = createStackNavigator()
 const App = () => {
   const occurrenceList = [
@@ -52,7 +52,9 @@ const App = () => {
   const [points, setPoints] = useState(900)
   const [profileCategory, setProfileCategory] = useState("")
   const [profileMedal, setProfileMedal] = useState(null)
+  const [loadingMap, setLoadingMap]= useState(null)
   const [userName, setUserName] = useState('Kauã Moreira Batista')
+  const [userPosition, setUserPosition]=useState(null)
   //Modals useStates
   const [isProfileModalOn, setIsProfileModalOn] = useState(false)
   const [isChangeNumberModalOn, setIsChangeNumberModalOn] = useState(false)
@@ -69,6 +71,12 @@ const App = () => {
   const [typeCount, setTypeCount] = useState([30, 25, 40])
   const handleMapClick=(event)=>{
     const { latitude, longitude } = event.nativeEvent.coordinate
+    const currentCordenate = { position: { lat: latitude, lng: longitude }, occurrenceType: "", comment: "" }
+    setCurrentPoint(currentCordenate)
+    setIsPostOccurrenceModalOn(true)
+  }
+  const handleCreateTabClick=()=>{
+    const { latitude, longitude } = userPosition
     const currentCordenate = { position: { lat: latitude, lng: longitude }, occurrenceType: "", comment: "" }
     setCurrentPoint(currentCordenate)
     setIsPostOccurrenceModalOn(true)
@@ -98,12 +106,26 @@ const App = () => {
     }
     loadProfileCategory()
   },[points])
+  
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync()//Request permission to the user to allow use the location
+      if (status !== 'granted') {//If the location was denied
+        console.log('Permission to access location was denied')
+        return
+      }
+      let location = await Location.getCurrentPositionAsync({})//Try get the current position
+      setUserPosition({latitude: location.coords.latitude, longitude: location.coords.longitude})//Update the user data
+      setLoadingMap(false)//Update the loading data
+    })()
+  }, [])
+  
   return (
     <MainScreen
     profileMedal={profileMedal} postOccurrence={postOccurrence} handleMapClick={handleMapClick} occurrenceList={occurrenceList} cep={cep} setCep={setCep} cityName={cityName} setCityName={setCityName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint}
     endDate={endDate} setEndDate={setEndDate} reportsCount={reportsCount} setReportsCount={setReportsCount} reportsLabels={reportsLabels} setReportsLabels={setReportsLabels} typeCount={typeCount} setTypeCount={setTypeCount} points={points} setPoints={setPoints} userName={userName} setUserName={setUserName}
-    userComment={userComment} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} typeLabels={typeLabels} setTypeLabels={setTypeLabels} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
-    isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
+    userComment={userComment} loadingMap={loadingMap} userPosition={userPosition} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} typeLabels={typeLabels} setTypeLabels={setTypeLabels} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
+    isSearchModalOn={isSearchModalOn} handleCreateTabClick={handleCreateTabClick} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
     isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal}  PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
   )
 }

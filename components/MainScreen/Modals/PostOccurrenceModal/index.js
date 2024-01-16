@@ -11,6 +11,12 @@ const PostOccurrenceModal = ({postOccurrence, userComment, setUserComment, selec
   const [commentErrorMessage, setCommentErrorMessage] = useState('')
   const [showCommentErrorMessage, setShowCommentErrorMessage] =  useState(false)
   
+  const typeComment=(text)=>{
+    if(text!=""){
+      setShowCommentErrorMessage(false)
+    }
+    setUserComment(text)
+  }
   const handleCloseModal=()=>{
     setIsPostOccurrenceModalOn(false)
     setShowCommentErrorMessage(false)
@@ -39,7 +45,7 @@ const PostOccurrenceModal = ({postOccurrence, userComment, setUserComment, selec
             <Header handleCloseModal={handleCloseModal} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn}/>
             <View style={styles.modalContent}>
               <Dropdown selectedOption={selectedOption} handleValueChange={handleValueChange} occurrenceList={occurrenceList}/>
-              <Commentary showCommentErrorMessage={showCommentErrorMessage} commentErrorMessage={commentErrorMessage} userComment={userComment} setUserComment={setUserComment} />
+              <Commentary typeComment={typeComment} showCommentErrorMessage={showCommentErrorMessage} commentErrorMessage={commentErrorMessage} userComment={userComment} setUserComment={setUserComment} />
               <FileInput />
               <FooterButtons handleCloseModal={handleCloseModal} validateData={validateData} setUserComment={setUserComment} postOccurrence={postOccurrence} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn}/>
             </View>

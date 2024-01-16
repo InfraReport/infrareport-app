@@ -1,14 +1,22 @@
-import { View, Text, TextInput, Button, Image, StyleSheet } from 'react-native'
+import { View, Text, TextInput, Button, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 
-const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon, PasswordIcon, setEmail, email, password, setPassword, celphone, setCelphone, cityName, setCityName, userName, setUserName, cep, setCep}) => {
-
+const RegisterScreen = ({route, navigation}) => {
+  const {
+    EmailIcon,
+    PersonIcon,
+    CelphoneIcon,
+    CepIcon,
+    CityIcon,
+    PasswordIcon
+  }=route.params
   const handleRegister = () => {
-    console.log('Email:', email)
-    console.log('Password:', password)
-    console.log('Celphone:', celphone)
-    console.log('cityName:', cityName)
-    console.log('userName:', userName)
-    console.log('cep:', cep)
+    // console.log('Email:', email)
+    // console.log('Password:', password)
+    // console.log('Celphone:', celphone)
+    // console.log('cityName:', cityName)
+    // console.log('userName:', userName)
+    // console.log('cep:', cep)
+    navigation.navigate("Main")
   }
   
 
@@ -21,7 +29,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
         <TextInput
           style={styles.input}
           placeholder="Nome completo"
-          onChangeText={text => setUserName(text)}
+          //onChangeText={text => setUserName(text)}
         />
       </View>
       <View style={styles.inputView}>
@@ -29,7 +37,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
         <TextInput
           style={styles.input}
           placeholder="Email"
-          onChangeText={text => setEmail(text)}
+          //onChangeText={text => setEmail(text)}
         />
       </View>
       <View style={styles.CepAndCelphoneView}>
@@ -38,7 +46,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
           <TextInput
             style={styles.littleInput}
             placeholder="CEP"
-            onChangeText={text => setCep(text)}
+            //onChangeText={text => setCep(text)}
             keyboardType="numeric"
           />
         </View>
@@ -47,7 +55,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
           <TextInput
             style={styles.littleInput}
             placeholder="Celular"
-            onChangeText={text => setCelphone(text)}
+            //onChangeText={text => setCelphone(text)}
             keyboardType="numeric"
           />
         </View>
@@ -57,7 +65,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
         <TextInput
           style={styles.input}
           placeholder="Nome da cidade"
-          onChangeText={text => setCityName(text)}
+          //onChangeText={text => setCityName(text)}
         />
       </View>
       <View style={styles.inputView}>
@@ -66,7 +74,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
           style={styles.input}
           placeholder="Senha"
           secureTextEntry
-          onChangeText={text => setPassword(text)}
+          //onChangeText={text => setPassword(text)}
         />
       </View>
 
@@ -74,7 +82,7 @@ const RegisterScreen = ({EmailIcon, PersonIcon, CelphoneIcon, CepIcon, CityIcon,
 
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Já tem conta? </Text>
-        <Text style={styles.signupLink}>Conecte-se!</Text>
+        <TouchableWithoutFeedback onPress={()=>{navigation.navigate("Login")}}><Text style={styles.signupLink}>Conecte-se!</Text></TouchableWithoutFeedback>
       </View>
     </View>
   )

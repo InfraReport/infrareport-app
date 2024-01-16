@@ -1,7 +1,7 @@
 import {
   View,Text, StyleSheet, TextInput
 } from 'react-native'
-const Commentary = ({showCommentErrorMessage, commentErrorMessage, userComment, setUserComment}) => {
+const Commentary = ({typeComment, showCommentErrorMessage, commentErrorMessage, userComment, setUserComment}) => {
   return (
     <View style={styles.container}>
       <View>
@@ -10,7 +10,7 @@ const Commentary = ({showCommentErrorMessage, commentErrorMessage, userComment, 
           multiline={true}
           numberOfLines={5}
           style={styles.textarea}
-          onChangeText={(text)=>{setUserComment(text)}}
+          onChangeText={(text)=>{typeComment(text)}}
           />
       </View>
       {showCommentErrorMessage && <Text style={styles.errorText}>{commentErrorMessage}</Text>}

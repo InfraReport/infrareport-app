@@ -1,4 +1,7 @@
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import GifImage from '@lowkey/react-native-gif'
+import PreloadingGif from './../../../assets/preloading.gif'
+import PersonIcon from "./../../../assets/AvatarIcon.png"
 import MapView, { Marker } from 'react-native-maps'
 import BathroomIcon from "./../../../assets/reportIcons/Bathroom.png"
 import BridgeIcon from "./../../../assets/reportIcons/Bridge.png"
@@ -19,7 +22,8 @@ import VandalismIcon from "./../../../assets/reportIcons/Vandalism.png"
 import ConcludedIcon from "./../../../assets/reportIcons/Concluded.png"
 import WithoutLightIcon from "./../../../assets/reportIcons/WithoutLight.png"
 
-const Map = ({markerPoints, setMarkerPoints, handleMapClick, currentPoint, setCurrentPoint, setIsPostOccurrenceModalOn, setIsProfileModalOn, AvatarIcon}) => {
+const Map = ({loadingMap, setLoadingMap, userPosition, setUserPosition, markerPoints, setMarkerPoints, handleMapClick, currentPoint, setCurrentPoint, setIsPostOccurrenceModalOn, setIsProfileModalOn, AvatarIcon}) => {
+
   const hashTableImage = {
     "Postes Danificados": StreetLampOnIcon,
     "Buracos nas Ruas": HoleIcon,
@@ -37,20 +41,49 @@ const Map = ({markerPoints, setMarkerPoints, handleMapClick, currentPoint, setCu
     "Corpos d'água Poluídos": WaterIcon,
     "Bancos ou Abrigos Públicos Danificados": VandalismIcon,
     "Vegetação Excessiva Bloqueando Estradas": ForestIcon,
-    "Apagões": WithoutLightIcon
+    "Apagões": WithoutLightIcon,
+    "User": PersonIcon
   }
   return (
     <View style={styles.container}>
+    {loadingMap ? (
+      <View style={styles.loadingViewer}>
+        <GifImage 
+          source={PreloadingGif}
+          style={styles.loadingGift}
+          resizeMode={'cover'}
+        />
+        <Text style={styles.loadingText}>Carregando mapa...</Text>
+      </View>
+      ):(
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={
+            userPosition
+              ? {
+                  latitude: userPosition.latitude,
+                  longitude: userPosition.longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }
+              : null
+          }
         onPress={handleMapClick}
       >
+      {userPosition && (
+          <Marker
+            coordinate={{
+              latitude: userPosition.latitude,
+              longitude: userPosition.longitude,
+            }}
+            title="You are here"
+          >
+            <Image
+              source={hashTableImage["User"]}
+              style={{ width: 40, height: 40 }}
+            />
+          </Marker>
+        )}
         {
           markerPoints.map((markerPoint, index)=>(
             <Marker
@@ -69,7 +102,7 @@ const Map = ({markerPoints, setMarkerPoints, handleMapClick, currentPoint, setCu
             </Marker>
           ))
         }
-      </MapView>
+      </MapView>)}
     </View>
   )
 }
@@ -95,6 +128,21 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 25,
+  },
+  loadingViewer:{
+    width: "100%",
+    height: "100%",
+    paddingTop: "45%"
+  },
+  loadingText:{
+    fontWeight: 800,
+    fontSize: 32,
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  loadingGift:{
+    marginLeft: "auto",
+    marginRight: "auto"
   }
 })
 

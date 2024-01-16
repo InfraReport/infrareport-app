@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import Map from './Map'
 import SearchModal from './Modals/SearchModal'
 import ProfileModal from './Modals/ProfileModal'
@@ -8,6 +8,10 @@ import PostOccurrenceModal from './Modals/PostOccurrenceModal'
 import BottomNavigator from './BottomNavigator'
 
 const MainScreen=({
+    loadingMap,
+    setLoadingMap,
+    userPosition,
+    setUserPosition,
     handleMapClick,
     occurrenceList,
     profileMedal,
@@ -63,11 +67,12 @@ const MainScreen=({
     AvatarIcon,
     isProfileModalOn,
     setIsProfileModalOn,
+    handleCreateTabClick,
   })=>{
     return (
         <View style={styles.container}>
-            <Map markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} handleMapClick={handleMapClick} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} setIsProfileModalOn={setIsProfileModalOn} AvatarIcon={AvatarIcon}/>
-            <BottomNavigator isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} />
+            <Map loadingMap={loadingMap} setLoadingMap={setLoadingMap} userPosition={userPosition} setUserPosition={setUserPosition} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} handleMapClick={handleMapClick} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} setIsProfileModalOn={setIsProfileModalOn} AvatarIcon={AvatarIcon}/>
+            <BottomNavigator handleCreateTabClick={handleCreateTabClick} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} />
             <SearchModal startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedOption={selectedOption} setSelectedOption={setSelectedOption} occurrenceList={occurrenceList} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn} />
             <ProfileModal isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal} profileCategory={profileCategory} points={points} celphone={celphone} email={email} password={password} PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} userName={userName} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn} />
             <ChangeNumberModal isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} CelphoneIcon={CelphoneIcon} PasswordIcon={PasswordIcon} setCelphone={setCelphone} setPassword={setPassword} celphone={celphone} setIsProfileModalOn={setIsProfileModalOn}/>

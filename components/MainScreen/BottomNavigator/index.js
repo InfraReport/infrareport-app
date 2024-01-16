@@ -1,14 +1,14 @@
 import { View, StyleSheet } from 'react-native'
 
-import AddTab from './AddTab'
+import CreateTab from './CreateTab'
 import SearchTab from './SearchTab'
 import ProfileTab from './ProfileTab'
 
-const BottomNavigator = ({isProfileModalOn, setIsProfileModalOn, isSearchModalOn, setIsSearchModalOn, isPostOccurrenceModalOn, setIsPostOccurrenceModalOn}) => {
+const BottomNavigator = ({handleCreateTabClick, isProfileModalOn, setIsProfileModalOn, isSearchModalOn, setIsSearchModalOn, isPostOccurrenceModalOn, setIsPostOccurrenceModalOn}) => {
   return (
     <View style={styles.bottomNavigator}>
       <SearchTab styles={styles} isSearchModalOn={isSearchModalOn} setIsSearchModalOn={setIsSearchModalOn}/>
-      <AddTab styles={styles} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn}/>
+      <CreateTab styles={styles} handleCreateTabClick={handleCreateTabClick} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn}/>
       <ProfileTab styles={styles} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
     </View>
   )
