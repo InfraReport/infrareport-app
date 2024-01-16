@@ -20,12 +20,13 @@ import { loginUser, logoutUser } from './Redux/UserReducer/Actions'
 import { connect } from 'react-redux'
 import { Provider } from "react-redux"
 import store from './Redux/store'
+import { setUserName } from './Redux/UserReducer/Actions'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator()
-const App = () => {
+const App = ({ userName, setUserName }) => {
   const occurrenceList = [
     "Postes Danificados",
     "Buracos nas Ruas",
@@ -57,7 +58,6 @@ const App = () => {
   const [profileCategory, setProfileCategory] = useState("")//User
   const [profileMedal, setProfileMedal] = useState(null)//User
   const [loadingMap, setLoadingMap]= useState(null)//Map
-  const [userName, setUserName] = useState('Kauã Moreira Batista')//User
   const [userPosition, setUserPosition]=useState(null)//User
 
   //Modals useStates
@@ -121,26 +121,30 @@ const App = () => {
         setLoadingMap(false)//Update the loading data
       })()
     }
+    const loadUserInfo=()=>{
+      setUserName()
+    }
     loadProfileCategory()
     getCurrentPosition()
+    
   },[points])
   
   return (
-    <Provider store={store}>
       <MainScreen
       profileMedal={profileMedal} postOccurrence={postOccurrence} handleMapClick={handleMapClick} occurrenceList={occurrenceList} cep={cep} setCep={setCep} cityName={cityName} setCityName={setCityName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint}
-      endDate={endDate} setEndDate={setEndDate} points={points} setPoints={setPoints} userName={userName} setUserName={setUserName}
+      endDate={endDate} setEndDate={setEndDate} points={points} setPoints={setPoints} userName={userName}
       userComment={userComment} loadingMap={loadingMap} userPosition={userPosition} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
       isSearchModalOn={isSearchModalOn} handleCreateTabClick={handleCreateTabClick} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
       isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal}  PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
-    </Provider>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
     userName: state.name,
-  };
+  }
 }
-
-export default App
+const mapDispatchToProps={
+  setUserName
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App)
