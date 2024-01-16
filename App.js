@@ -15,7 +15,11 @@ import BronzeMedalIcon from "./assets/Medals/BronzeMedalIcon.png"
 import SilverMedalIcon from "./assets/Medals/SilverMedalIcon.png"
 import GoldMedalIcon from "./assets/Medals/GoldMedalIcon.png"
 import logoImage from './assets/logo.jpeg'
+
+import { loginUser, logoutUser } from './Redux/UserReducer/Actions'
+import { connect } from 'react-redux'
 import { Provider } from "react-redux"
+import store from './Redux/store'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -42,33 +46,32 @@ const App = () => {
     "Apagões"
   ]
   // Login/Register page useStates
-  const [email, setEmail] = useState('teste@teste.com')
-  const [password, setPassword] = useState('senhaTeste')
-  const [celphone, setCelphone] = useState('35999999999')
-  const [currentPoint, setCurrentPoint] = useState({})
-  const [markerPoints, setMarkerPoints] = useState([{position: {lat: 37.78825, lng: -122.4324}, occurrenceType: "Postes Danificados", comment: "User Comment"}])
-  const [cep, setCep] = useState('')
-  const [cityName, setCityName] = useState('')
-  const [points, setPoints] = useState(900)
-  const [profileCategory, setProfileCategory] = useState("")
-  const [profileMedal, setProfileMedal] = useState(null)
-  const [loadingMap, setLoadingMap]= useState(null)
-  const [userName, setUserName] = useState('Kauã Moreira Batista')
-  const [userPosition, setUserPosition]=useState(null)
+  const [email, setEmail] = useState('teste@teste.com')//User
+  const [password, setPassword] = useState('senhaTeste')//User
+  const [celphone, setCelphone] = useState('35999999999')//User
+  const [currentPoint, setCurrentPoint] = useState({})//User
+  const [markerPoints, setMarkerPoints] = useState([{position: {lat: 37.78825, lng: -122.4324}, occurrenceType: "Postes Danificados", comment: "User Comment"}])//Report
+  const [cep, setCep] = useState('')//User
+  const [cityName, setCityName] = useState('')//User
+  const [points, setPoints] = useState(900)//User
+  const [profileCategory, setProfileCategory] = useState("")//User
+  const [profileMedal, setProfileMedal] = useState(null)//User
+  const [loadingMap, setLoadingMap]= useState(null)//Map
+  const [userName, setUserName] = useState('Kauã Moreira Batista')//User
+  const [userPosition, setUserPosition]=useState(null)//User
+
   //Modals useStates
   const [isProfileModalOn, setIsProfileModalOn] = useState(false)
   const [isChangeNumberModalOn, setIsChangeNumberModalOn] = useState(false)
   const [isChangePasswordModalOn, setIsChangePasswordModalOn] = useState(false)
   const [isSearchModalOn, setIsSearchModalOn] = useState(false)
   const [isPostOccurrenceModalOn, setIsPostOccurrenceModalOn] = useState(false)
-  const [userComment, setUserComment] = useState("")
-  const [selectedOption, setSelectedOption] = useState("Postes Danificados")
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-  const [reportsCount, setReportsCount] = useState([10, 20, 5, 15])
-  const [reportsLabels, setReportsLabels] = useState(['Category A', 'Category B', 'Category C', 'Category D'])
-  const [typeLabels, setTypeLabels] = useState(['Type X', 'Type Y', 'Type Z'])
-  const [typeCount, setTypeCount] = useState([30, 25, 40])
+
+  //reports useStates
+  const [userComment, setUserComment] = useState("")//Reports
+  const [selectedOption, setSelectedOption] = useState("Postes Danificados")//Reports
+  const [startDate, setStartDate] = useState(new Date())//Reports
+  const [endDate, setEndDate] = useState(new Date())//Reports
   const handleMapClick=(event)=>{
     const { latitude, longitude } = event.nativeEvent.coordinate
     const currentCordenate = { position: { lat: latitude, lng: longitude }, occurrenceType: "", comment: "" }
@@ -89,6 +92,8 @@ const App = () => {
     setIsPostOccurrenceModalOn(false)
     setUserComment("")
   }
+
+
   //<RegisterScreen EmailIcon={EmailIcon} PersonIcon={PersonIcon} CelphoneIcon={CelphoneIcon} CepIcon={CepIcon} CityIcon={CityIcon} PasswordIcon={PasswordIcon} setEmail={setEmail} email={email} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} cityName={cityName} setCityName={setCityName} userName={userName} setUserName={setUserName} cep={cep} setCep={setCep} />
   //<LoginScreen logoImage={logoImage} PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} setEmail={setEmail} email={email} password={password} setPassword={setPassword} />
   useEffect(()=>{
@@ -104,30 +109,38 @@ const App = () => {
         setProfileMedal(GoldMedalIcon)
       }
     }
+    const getCurrentPosition=()=>{
+      (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync()//Request permission to the user to allow use the location
+        if (status !== 'granted') {//If the location was denied
+          console.log('Permission to access location was denied')
+          return
+        }
+        let location = await Location.getCurrentPositionAsync({})//Try get the current position
+        setUserPosition({latitude: location.coords.latitude, longitude: location.coords.longitude})//Update the user data
+        setLoadingMap(false)//Update the loading data
+      })()
+    }
     loadProfileCategory()
+    getCurrentPosition()
   },[points])
   
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync()//Request permission to the user to allow use the location
-      if (status !== 'granted') {//If the location was denied
-        console.log('Permission to access location was denied')
-        return
-      }
-      let location = await Location.getCurrentPositionAsync({})//Try get the current position
-      setUserPosition({latitude: location.coords.latitude, longitude: location.coords.longitude})//Update the user data
-      setLoadingMap(false)//Update the loading data
-    })()
-  }, [])
-  
   return (
-    <MainScreen
-    profileMedal={profileMedal} postOccurrence={postOccurrence} handleMapClick={handleMapClick} occurrenceList={occurrenceList} cep={cep} setCep={setCep} cityName={cityName} setCityName={setCityName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint}
-    endDate={endDate} setEndDate={setEndDate} reportsCount={reportsCount} setReportsCount={setReportsCount} reportsLabels={reportsLabels} setReportsLabels={setReportsLabels} typeCount={typeCount} setTypeCount={setTypeCount} points={points} setPoints={setPoints} userName={userName} setUserName={setUserName}
-    userComment={userComment} loadingMap={loadingMap} userPosition={userPosition} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} typeLabels={typeLabels} setTypeLabels={setTypeLabels} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
-    isSearchModalOn={isSearchModalOn} handleCreateTabClick={handleCreateTabClick} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
-    isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal}  PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
+    <Provider store={store}>
+      <MainScreen
+      profileMedal={profileMedal} postOccurrence={postOccurrence} handleMapClick={handleMapClick} occurrenceList={occurrenceList} cep={cep} setCep={setCep} cityName={cityName} setCityName={setCityName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} celphone={celphone} setCelphone={setCelphone} currentPoint={currentPoint} setCurrentPoint={setCurrentPoint}
+      endDate={endDate} setEndDate={setEndDate} points={points} setPoints={setPoints} userName={userName} setUserName={setUserName}
+      userComment={userComment} loadingMap={loadingMap} userPosition={userPosition} setUserComment={setUserComment} selectedOption={selectedOption} setSelectedOption={setSelectedOption} markerPoints={markerPoints} setMarkerPoints={setMarkerPoints} profileCategory={profileCategory} setProfileCategory={setProfileCategory}
+      isSearchModalOn={isSearchModalOn} handleCreateTabClick={handleCreateTabClick} setIsSearchModalOn={setIsSearchModalOn} isPostOccurrenceModalOn={isPostOccurrenceModalOn} setIsPostOccurrenceModalOn={setIsPostOccurrenceModalOn} startDate={startDate} setStartDate={setStartDate}
+      isChangePasswordModalOn={isChangePasswordModalOn} setIsChangePasswordModalOn={setIsChangePasswordModalOn} isChangeNumberModalOn={isChangeNumberModalOn} setIsChangeNumberModalOn={setIsChangeNumberModalOn} ProfileMedal={profileMedal}  PasswordIcon={PasswordIcon} EmailIcon={EmailIcon} CelphoneIcon={CelphoneIcon} AvatarIcon={AvatarIcon} isProfileModalOn={isProfileModalOn} setIsProfileModalOn={setIsProfileModalOn}/>
+    </Provider>
   )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    userName: state.name,
+  };
 }
 
 export default App
