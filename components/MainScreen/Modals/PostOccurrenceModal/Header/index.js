@@ -1,7 +1,7 @@
 import {
-  View,Text, StyleSheet, Pressable
+  View,Text, StyleSheet, Pressable, Image
 } from 'react-native'
-import { AntDesign } from '@expo/vector-icons'
+import CloseIcon from './../../../../../assets/close.png'
 const Header = ({handleCloseModal, setIsPostOccurrenceModalOn}) => {
   return (
     <View style={styles.modalTop}>
@@ -9,7 +9,7 @@ const Header = ({handleCloseModal, setIsPostOccurrenceModalOn}) => {
         <Text style={styles.modalTopText}>Publicar ocorrência</Text>
       </View>
       <Pressable onPress={handleCloseModal}>
-        <AntDesign name="close" size={24} color="#115" />
+        <Image source={CloseIcon} style={{ width: 34, height: 34 }}  />
       </Pressable>
     </View>
   )

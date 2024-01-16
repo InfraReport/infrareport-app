@@ -1,15 +1,15 @@
 import {
-  View,Text, StyleSheet, Pressable
+  View,Text, StyleSheet, Pressable, Image
 } from 'react-native'
-import { AntDesign } from '@expo/vector-icons'
-const Header = ({setIsSearchModalOn}) => {
+import CloseIcon from './../../../../../assets/close.png'
+const Header = ({handleCloseModal}) => {
   return (
     <View style={styles.modalTop}>
       <View>
         <Text style={styles.modalTopText}>Pesquise as ocorrências</Text>
       </View>
-      <Pressable onPress={()=>{setIsSearchModalOn(false)}}>
-        <AntDesign name="close" size={24} color="#115" />
+      <Pressable onPress={handleCloseModal}>
+        <Image source={CloseIcon} style={{ width: 34, height: 34 }}  />
       </Pressable>
     </View>
   )

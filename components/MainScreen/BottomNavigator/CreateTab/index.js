@@ -1,10 +1,17 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import GrayCreateIcon from "./../../../../assets/BottomBarIcons/GrayIcons/Create.png"
+import BlueCreateIcon from "./../../../../assets/BottomBarIcons/BlueIcons/Create.png"
+
 const AddTab = ({handleCreateTabClick, isPostOccurrenceModalOn, setIsPostOccurrenceModalOn }) => {
   return (
       <TouchableOpacity style={styles.touchable} onPress={handleCreateTabClick}>
         <View style={styles.bottomTab}>
-          <Ionicons name="add-circle" size={20} color={isPostOccurrenceModalOn ? "#0096FF": "gray"} />
+          {
+            isPostOccurrenceModalOn ?
+            <Image source={BlueCreateIcon} style={{ width: 20, height: 20 }}  />
+            :
+            <Image source={GrayCreateIcon} style={{ width: 20, height: 20 }}  />
+          }
           <Text style={isPostOccurrenceModalOn ? {color:"#0096FF"} : {color:"gray"}}>Criar</Text>
         </View>
        </TouchableOpacity>

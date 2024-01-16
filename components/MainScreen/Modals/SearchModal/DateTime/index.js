@@ -1,43 +1,32 @@
 import {
   View,Text, StyleSheet, Pressable
 } from 'react-native'
-import { useState } from 'react'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
-const DateTimeDiv = ({setDatePickerVisible, datePickerVisible, startDate, endDate, handleDateEndConfirm, handleDateStartConfirm}) => {
-  const [pressedStartDate,setPressedStartDate]=useState(null)
-  const showStartDateModal=()=>{
-    setPressedStartDate(true)
-    setDatePickerVisible(true)
-  }
-  const showEndDateModal=()=>{
-    setPressedStartDate(false)
-    setDatePickerVisible(true)
-  }
-  const confirmDateChange=(date)=>{
-    if(pressedStartDate){//Verify if the StartDateTime pressable was the one who was clicked
-      handleDateStartConfirm(date)
-    }else{//If it wasnt...
-      handleDateEndConfirm(date) 
-    }
-    setPressedStartDate(null)
-  }
+const DateTimeDiv = ({dateStartPickerVisible, setStartDatePickerVisible, dateEndPickerVisible, setEndDatePickerVisible, startDate, endDate, handleDateEndConfirm, handleDateStartConfirm}) => {
   return (
     <View style={styles.dataAndTimeDiv}>
       <DateTimePickerModal
           date={startDate}
-          isVisible={datePickerVisible}
+          isVisible={dateStartPickerVisible}
           mode="date"
-          onConfirm={confirmDateChange}
-          onCancel={()=>{setDatePickerVisible(false)}}
+          onConfirm={(date)=>{handleDateStartConfirm(date)}}
+          onCancel={()=>{setStartDatePickerVisible(false)}}
+      />
+      <DateTimePickerModal
+          date={endDate}
+          isVisible={dateEndPickerVisible}
+          mode="date"
+          onConfirm={(date)=>{handleDateEndConfirm(date)}}
+          onCancel={()=>{setEndDatePickerVisible(false)}}
       />
       <Text style={{ fontSize: 24}}>Intervalo de datas: </Text>
       <View  style={styles.dataAndTimePicker}>
-        <Pressable style={styles.btnStyle} onPress={showStartDateModal}><Text style={styles.dataTextFormat}>{startDate ? startDate.toLocaleDateString() : 'No date selected'}</Text></Pressable>
+        <Pressable style={styles.btnStyle} onPress={()=>{setStartDatePickerVisible(true)}}><Text style={styles.dataTextFormat}>{startDate ? startDate.toLocaleDateString() : 'No date selected'}</Text></Pressable>
         <Text style={styles.smallText}>Data inicial</Text>
         </View>
       <View  style={styles.dataAndTimePicker}>
-        <Pressable style={styles.btnStyle} onPress={showEndDateModal}><Text style={styles.dataTextFormat}>{endDate ? endDate.toLocaleDateString() : 'No date selected'}</Text></Pressable>
+        <Pressable style={styles.btnStyle} onPress={()=>{setEndDatePickerVisible(true)}}><Text style={styles.dataTextFormat}>{endDate ? endDate.toLocaleDateString() : 'No date selected'}</Text></Pressable>
         <Text style={styles.smallText}>Data final</Text>
       </View>
     </View>

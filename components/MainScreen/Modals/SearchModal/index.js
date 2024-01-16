@@ -1,21 +1,25 @@
 import { View, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Dropdown from './Dropdown'
 import DateTime from './DateTime'
 import FooterButtons from './FooterButtons'
 import Header from './Header'
 
 const SearchModal = ({startDate, setStartDate, endDate, setEndDate, selectedOption, setSelectedOption, occurrenceList, isSearchModalOn, setIsSearchModalOn}) => {
-  const [datePickerVisible, setDatePickerVisible] = useState(false)
+  const [dateStartPickerVisible, setStartDatePickerVisible] = useState(false)
+  const [dateEndPickerVisible, setEndDatePickerVisible] = useState(false)
   const handleValueChange=(itemValue, itemIndex) =>{setSelectedOption(itemValue)}
   const handleDateEndConfirm = (date) => {
+    setEndDatePickerVisible(false)
     setEndDate(date)
-    setDatePickerVisible(false)
   }
   const handleDateStartConfirm = (date) => {
+    setStartDatePickerVisible(false)
     setStartDate(date)
-    setDatePickerVisible(false)
+  }
+  const handleCloseModal=()=>{
+    setIsSearchModalOn(false)
   }
   return (
       <Modal
@@ -27,10 +31,10 @@ const SearchModal = ({startDate, setStartDate, endDate, setEndDate, selectedOpti
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Header setIsSearchModalOn={setIsSearchModalOn} />
+            <Header handleCloseModal={handleCloseModal} setIsSearchModalOn={setIsSearchModalOn} />
             <View style={styles.modalContent}>
               <Dropdown selectedOption={selectedOption} handleValueChange={handleValueChange} occurrenceList={occurrenceList} />
-              <DateTime datePickerVisible={datePickerVisible} setDatePickerVisible={setDatePickerVisible} startDate={startDate} endDate={endDate} handleDateEndConfirm={handleDateEndConfirm} handleDateStartConfirm={handleDateStartConfirm} />
+              <DateTime dateEndPickerVisible={dateEndPickerVisible} setEndDatePickerVisible={setEndDatePickerVisible} dateStartPickerVisible={dateStartPickerVisible} setStartDatePickerVisible={setStartDatePickerVisible} startDate={startDate} endDate={endDate} handleDateEndConfirm={handleDateEndConfirm} handleDateStartConfirm={handleDateStartConfirm} />
               <FooterButtons setIsSearchModalOn={setIsSearchModalOn} isSearchModalOn={isSearchModalOn}/>
             </View>
           </View>
